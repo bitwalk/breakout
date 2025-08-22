@@ -80,11 +80,17 @@ int main(void) {
         float deltaTime = GetFrameTime();
 
         if (!gameOver && !gameWon) {
-            // Paddle movement
+            // Paddle movement - keyboard
             if (IsKeyDown(KEY_LEFT) && paddle.x > 0)
                 paddle.x -= paddle.speedX * deltaTime;
             if (IsKeyDown(KEY_RIGHT) && paddle.x < SCREEN_WIDTH - paddle.width)
                 paddle.x += paddle.speedX * deltaTime;
+            
+            // Paddle movement - mouse
+            Vector2 mousePosition = GetMousePosition();
+            if (mousePosition.x >= paddle.width/2 && mousePosition.x <= SCREEN_WIDTH - paddle.width/2) {
+                paddle.x = mousePosition.x - paddle.width/2;
+            }
 
             // Ball movement
             ball.x += ball.speedX * deltaTime;
